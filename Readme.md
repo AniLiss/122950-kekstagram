@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url] [![Dependency status][dependency-image]][dependency-url]
 
 * Студент: [Elizabeth Anatskaya](https://up.htmlacademy.ru/javascript/8/user/122950).
-* Наставник: `Михаил Баранов`.
+* Наставник: `Михаил Баранов https://github.com/h4/`.
 
 ---
 
