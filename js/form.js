@@ -1,6 +1,8 @@
 /**
  * Created by Elizabeth Anatskaya on 31.01.2017.
  */
+'use strict';
+
 var uploadFormCancel = document.querySelector('.upload-form-cancel');
 var uploadOverlay = document.querySelector('.upload-overlay');
 var uploadSelectImage = document.querySelector('#upload-select-image');
