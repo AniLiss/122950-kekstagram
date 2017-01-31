@@ -133,6 +133,18 @@ body {
           filter: invert(100%);
 }
 
+.upload-filter-label-phobos .upload-filter-preview,
+.filter-phobos {
+  -webkit-filter: blur(5px);
+  filter: blur(5px);
+}
+
+.upload-filter-label-heat .upload-filter-preview,
+.filter-heat {
+  -webkit-filter: saturate(8);
+  filter: saturate(8);
+}
+
 .upload-input {
   visibility: hidden;
 }
