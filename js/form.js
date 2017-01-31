@@ -16,12 +16,12 @@ var uploadResizeControlsValue = document.querySelector('.upload-resize-controls 
 uploadFormCancel.onclick = function () {
   uploadOverlay.classList.add('invisible');
   uploadSelectImage.classList.remove('invisible');
-}
+};
 
 var showUploadOverlay = function () {
   uploadOverlay.classList.remove('invisible');
   uploadSelectImage.classList.add('invisible');
-}
+};
 
 uploadFile.addEventListener('change', showUploadOverlay);
 
@@ -29,7 +29,7 @@ var changeFilter = function (e) {
   filterImagePreview.className = 'filter-image-preview';
   var filterName = 'filter-' + e.currentTarget.value;
   filterImagePreview.classList.add(filterName);
-}
+};
 
 for (var i = 0; i < uploadFilters.length; i++) {
   uploadFilters[i].addEventListener('click', changeFilter);
@@ -47,7 +47,7 @@ var changePhotoSize = function (e) {
       filterImagePreview.style = 'transform: scale(1)';
     } else {
       uploadResizeControlsValue.value = (zoomValue += 25) + '%';
-      filterImagePreview.style = 'transform: scale(0.' + zoomValue +')';
+      filterImagePreview.style = 'transform: scale(0.' + zoomValue + ')';
     }
 
   } else if (e.target.classList.contains('upload-resize-controls-button-dec') && zoomValue > 0) {
@@ -57,15 +57,9 @@ var changePhotoSize = function (e) {
       zoomValue = 25;
     } else {
       uploadResizeControlsValue.value = (zoomValue -= 25) + '%';
-      filterImagePreview.style = 'transform: scale(0.' + zoomValue +')';
+      filterImagePreview.style = 'transform: scale(0.' + zoomValue + ')';
     }
   }
-}
+};
 
 uploadResizeControls.addEventListener('click', changePhotoSize);
-
-
-
-
-
-
