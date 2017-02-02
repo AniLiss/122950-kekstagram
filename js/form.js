@@ -18,7 +18,7 @@ filterImagePreview.style = 'transform: scale(0.55)';
 var closeUploadOverlay = function () {
   uploadOverlay.classList.add('invisible');
   uploadSelectImage.classList.remove('invisible');
-}
+};
 
 uploadFormCancelBtn.addEventListener('click', closeUploadOverlay);
 
@@ -32,7 +32,7 @@ uploadFile.addEventListener('change', showUploadOverlay);
 
 var switchFilter = function (e) {
   var targetFilter = e.target.parentNode.htmlFor;
-  if (targetFilter != undefined) {
+  if (targetFilter !== undefined) {
     var filterName = 'filter-' + e.currentTarget.querySelector('#' + targetFilter).value;
     filterImagePreview.className = 'filter-image-preview';
     filterImagePreview.classList.add(filterName);
