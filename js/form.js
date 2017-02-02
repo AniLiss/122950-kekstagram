@@ -32,7 +32,7 @@ uploadFile.addEventListener('change', showUploadOverlay);
 
 var switchFilter = function (e) {
   var targetFilter = e.target.parentNode.htmlFor;
-  if (targetFilter !== undefined) {
+  if (targetFilter) {
     var filterName = 'filter-' + e.currentTarget.querySelector('#' + targetFilter).value;
     filterImagePreview.className = 'filter-image-preview';
     filterImagePreview.classList.add(filterName);
