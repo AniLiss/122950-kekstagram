@@ -2,64 +2,67 @@
  * Created by Elizabeth Anatskaya on 31.01.2017.
  */
 'use strict';
-
-var uploadFormCancel = document.querySelector('.upload-form-cancel');
 var uploadOverlay = document.querySelector('.upload-overlay');
+var uploadFormCancelBtn = uploadOverlay.querySelector('.upload-form-cancel');
+
 var uploadSelectImage = document.querySelector('#upload-select-image');
-var uploadFile = document.querySelector('#upload-file');
-var uploadFilters = document.querySelectorAll('input[name="upload-filter"]');
-var filterImagePreview = document.querySelector('.filter-image-preview');
+var uploadFile = uploadSelectImage.querySelector('#upload-file');
+var filterControls = uploadOverlay.querySelector('.upload-filter-controls');
+var filterImagePreview = uploadOverlay.querySelector('.filter-image-preview');
+var incSizeBtn = uploadOverlay.querySelector('.upload-resize-controls-button-inc');
+var decSizeBtn = uploadOverlay.querySelector('.upload-resize-controls-button-dec');
+var resizeControlsValue = uploadOverlay.querySelector('input');
+var zoomStep = 25;
+filterImagePreview.style = 'transform: scale(0.55)';
 
-var uploadResizeControls = document.querySelector('.upload-resize-controls');
-var uploadResizeControlsValue = document.querySelector('.upload-resize-controls > input');
-
-uploadFormCancel.onclick = function () {
+var closeUploadOverlay = function () {
   uploadOverlay.classList.add('invisible');
   uploadSelectImage.classList.remove('invisible');
-};
+}
+
+uploadFormCancelBtn.addEventListener('click', closeUploadOverlay);
 
 var showUploadOverlay = function () {
+  filterImagePreview.style = 'transform: scale(0.55)';
   uploadOverlay.classList.remove('invisible');
   uploadSelectImage.classList.add('invisible');
 };
 
 uploadFile.addEventListener('change', showUploadOverlay);
 
-var changeFilter = function (e) {
-  filterImagePreview.className = 'filter-image-preview';
-  var filterName = 'filter-' + e.currentTarget.value;
-  filterImagePreview.classList.add(filterName);
-};
-
-for (var i = 0; i < uploadFilters.length; i++) {
-  uploadFilters[i].addEventListener('click', changeFilter);
-}
-
-filterImagePreview.style = 'transform: scale(0.55)';
-
-var changePhotoSize = function (e) {
-
-  var zoomValue = +uploadResizeControlsValue.value.slice(0, -1);
-  if (e.target.classList.contains('upload-resize-controls-button-inc') && zoomValue < 100) {
-    if ((zoomValue + 25) >= 100) {
-      uploadResizeControlsValue.value = 100 + '%';
-      zoomValue = 100;
-      filterImagePreview.style = 'transform: scale(1)';
-    } else {
-      uploadResizeControlsValue.value = (zoomValue += 25) + '%';
-      filterImagePreview.style = 'transform: scale(0.' + zoomValue + ')';
-    }
-
-  } else if (e.target.classList.contains('upload-resize-controls-button-dec') && zoomValue > 0) {
-    if ((zoomValue - 25) <= 25) {
-      uploadResizeControlsValue.value = 25 + '%';
-      filterImagePreview.style = 'transform: scale(0.25)';
-      zoomValue = 25;
-    } else {
-      uploadResizeControlsValue.value = (zoomValue -= 25) + '%';
-      filterImagePreview.style = 'transform: scale(0.' + zoomValue + ')';
-    }
+var switchFilter = function (e) {
+  var targetFilter = e.target.parentNode.htmlFor;
+  if (targetFilter != undefined) {
+    var filterName = 'filter-' + e.currentTarget.querySelector('#' + targetFilter).value;
+    filterImagePreview.className = 'filter-image-preview';
+    filterImagePreview.classList.add(filterName);
   }
 };
 
-uploadResizeControls.addEventListener('click', changePhotoSize);
+filterControls.addEventListener('click', switchFilter, false);
+
+var increasePhotoSize = function () {
+  var zoomValue = +resizeControlsValue.value.slice(0, -1);
+  if ((zoomValue + zoomStep) >= 100) {
+    resizeControlsValue.value = 100 + '%';
+    filterImagePreview.style = 'transform: scale(1)';
+  } else {
+    resizeControlsValue.value = (zoomValue += zoomStep) + '%';
+    filterImagePreview.style = 'transform: scale(0.' + zoomValue + ')';
+  }
+};
+
+incSizeBtn.addEventListener('click', increasePhotoSize);
+
+var decreasePhotoSize = function () {
+  var zoomValue = +resizeControlsValue.value.slice(0, -1);
+  if ((zoomValue - zoomStep) <= zoomStep) {
+    resizeControlsValue.value = zoomStep + '%';
+    filterImagePreview.style = 'transform: scale(0.25)';
+  } else {
+    resizeControlsValue.value = (zoomValue -= zoomStep) + '%';
+    filterImagePreview.style = 'transform: scale(0.' + zoomValue + ')';
+  }
+};
+
+decSizeBtn.addEventListener('click', decreasePhotoSize);
