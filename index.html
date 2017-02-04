@@ -22,7 +22,7 @@
 <div class="upload">
   <form class="upload-form upload-image invisible" id="upload-select-image" method="post" enctype="multipart/form-data">
     <input type="file" id="upload-file" class="upload-input" name="filename" required>
-    <label class="upload-file upload-control" for="upload-file"></label>
+    <label class="upload-file upload-control" for="upload-file" role="button" tabindex="0"></label>
     <button class="upload-submit upload-control" type="submit"></button>
   </form>
 
@@ -49,36 +49,36 @@
 
         <input type="radio" name="upload-filter" id="upload-filter-none" value="none" checked>
         <label class="upload-filter-label" for="upload-filter-none">
-          <div class="upload-filter-preview"></div>
+          <div class="upload-filter-preview" role="button" tabindex="0" aria-pressed="false"></div>
           Оригинал
         </label>
 
         <input type="radio" name="upload-filter" id="upload-filter-chrome" value="chrome">
         <label class="upload-filter-label upload-filter-label-chrome" for="upload-filter-chrome">
-          <div class="upload-filter-preview"></div>
+          <div class="upload-filter-preview" role="button" tabindex="0" aria-pressed="false"></div>
           Хром
         </label>
 
         <input type="radio" name="upload-filter" id="upload-filter-sepia" value="sepia">
-        <label class="upload-filter-label upload-filter-label-sepia" for="upload-filter-sepia">
+        <label class="upload-filter-label upload-filter-label-sepia" for="upload-filter-sepia" role="button" tabindex="0" aria-pressed="false">
           <div class="upload-filter-preview"></div>
           Сепия
         </label>
 
         <input type="radio" name="upload-filter" id="upload-filter-marvin" value="marvin">
-        <label class="upload-filter-label upload-filter-label-marvin" for="upload-filter-marvin">
+        <label class="upload-filter-label upload-filter-label-marvin" for="upload-filter-marvin" role="button" tabindex="0" aria-pressed="false">
           <div class="upload-filter-preview"></div>
           Марвин
         </label>
 
         <input type="radio" name="upload-filter" id="upload-filter-phobos" value="phobos">
-        <label class="upload-filter-label upload-filter-label-phobos" for="upload-filter-phobos">
+        <label class="upload-filter-label upload-filter-label-phobos" for="upload-filter-phobos" role="button" tabindex="0" aria-pressed="false">
           <div class="upload-filter-preview"></div>
           Фобос
         </label>
 
         <input type="radio" name="upload-filter" id="upload-filter-heat" value="heat">
-        <label class="upload-filter-label upload-filter-label-heat" for="upload-filter-heat">
+        <label class="upload-filter-label upload-filter-label-heat" for="upload-filter-heat" role="button" tabindex="0" aria-pressed="false">
           <div class="upload-filter-preview"></div>
           Зной
         </label>
