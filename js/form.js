@@ -59,6 +59,11 @@ var switchFilter = function (e) {
 filterControls.addEventListener('click', switchFilter);
 filterControls.addEventListener('keydown', function (e) {
   if (e.keyCode === ENTER_KEY_CODE) {
+    var labelElements = e.currentTarget.querySelectorAll('.upload-filter-label');
+    for (var i = 0; i < labelElements.length; i++) {
+      labelElements[i].attributes['aria-checked'].nodeValue = false;
+    }
+    e.target.attributes['aria-checked'].nodeValue = true;
     switchFilter(e);
   }
 });
