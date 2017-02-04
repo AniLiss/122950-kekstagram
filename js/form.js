@@ -47,8 +47,7 @@ uploadFileLabel.addEventListener('keydown', function (e) {
 });
 
 var switchFilter = function (e) {
-  var targetFilter;
-  (e.target.parentNode.htmlFor) ? (targetFilter = e.target.parentNode.htmlFor) : (targetFilter = e.target.htmlFor);
+  var targetFilter = e.target.parentNode.htmlFor ? e.target.parentNode.htmlFor : e.target.htmlFor;
   if (targetFilter) {
     var filterName = 'filter-' + e.currentTarget.querySelector('#' + targetFilter).value;
     filterImagePreview.className = 'filter-image-preview';
