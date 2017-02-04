@@ -29,7 +29,7 @@ uploadOverlay.addEventListener('keydown', function (e) {
   if (e.keyCode === ESC_KEY_CODE) {
     closeUploadOverlay();
   }
-})
+});
 
 var showUploadOverlay = function (e) {
   filterImagePreview.style = 'transform: scale(0.55)';
