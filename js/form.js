@@ -4,7 +4,6 @@
 'use strict';
 var uploadOverlay = document.querySelector('.upload-overlay');
 var uploadFormCancelBtn = uploadOverlay.querySelector('.upload-form-cancel');
-
 var uploadSelectImage = document.querySelector('#upload-select-image');
 var uploadFileBtn = uploadSelectImage.querySelector('#upload-file');
 var uploadFileLabel = uploadSelectImage.querySelector('.upload-file');
@@ -49,13 +48,15 @@ uploadFileLabel.addEventListener('keydown', function (e) {
 var switchFilter = function (e) {
   var targetFilter = e.target.parentNode.htmlFor ? e.target.parentNode.htmlFor : e.target.htmlFor;
   if (targetFilter) {
-    var filterName = 'filter-' + e.currentTarget.querySelector('#' + targetFilter).value;
+    var filterValue = e.currentTarget.querySelector('#' + targetFilter).value;
+    var filterName = 'filter-' + filterValue;
     filterImagePreview.className = 'filter-image-preview';
     filterImagePreview.classList.add(filterName);
   }
 };
 
 filterControls.addEventListener('click', switchFilter);
+
 filterControls.addEventListener('keydown', function (e) {
   if (e.keyCode === ENTER_KEY_CODE) {
     var labelElements = e.currentTarget.querySelectorAll('.upload-filter-label');
