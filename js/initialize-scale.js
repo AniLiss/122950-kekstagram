@@ -1,6 +1,6 @@
 'use strict';
 
-function increasePhotoSize (zoomStep) {
+function increasePhotoSize(zoomStep) {
   return function () {
     var zoomValue = +resizeControlsValue.value.slice(0, -1);
     if ((zoomValue + zoomStep) >= 100) {
@@ -10,10 +10,10 @@ function increasePhotoSize (zoomStep) {
       resizeControlsValue.value = (zoomValue += zoomStep) + '%';
       filterImagePreview.style = 'transform: scale(0.' + zoomValue + ')';
     }
-  }
-};
+  };
+}
 
-function decreasePhotoSize (zoomStep) {
+function decreasePhotoSize(zoomStep) {
   return function () {
     var zoomValue = +resizeControlsValue.value.slice(0, -1);
     if ((zoomValue - zoomStep) <= zoomStep) {
@@ -23,5 +23,5 @@ function decreasePhotoSize (zoomStep) {
       resizeControlsValue.value = (zoomValue -= zoomStep) + '%';
       filterImagePreview.style = 'transform: scale(0.' + zoomValue + ')';
     }
-  }
+  };
 };
