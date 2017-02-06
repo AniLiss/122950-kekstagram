@@ -45,17 +45,7 @@ uploadFileLabel.addEventListener('keydown', function (e) {
   }
 });
 
-var switchFilter = function (e) {
-  var targetFilter = e.target.parentNode.htmlFor ? e.target.parentNode.htmlFor : e.target.htmlFor;
-  if (targetFilter) {
-    var filterValue = e.currentTarget.querySelector('#' + targetFilter).value;
-    var filterName = 'filter-' + filterValue;
-    filterImagePreview.className = 'filter-image-preview';
-    filterImagePreview.classList.add(filterName);
-  }
-};
-
-filterControls.addEventListener('click', switchFilter);
+filterControls.addEventListener('click', window.switchFilter);
 
 filterControls.addEventListener('keydown', function (e) {
   if (e.keyCode === ENTER_KEY_CODE) {
@@ -64,32 +54,10 @@ filterControls.addEventListener('keydown', function (e) {
       labelElements[i].attributes['aria-checked'].nodeValue = false;
     }
     e.target.attributes['aria-checked'].nodeValue = true;
-    switchFilter(e);
+    window.switchFilter(e);
   }
 });
 
-var increasePhotoSize = function () {
-  var zoomValue = +resizeControlsValue.value.slice(0, -1);
-  if ((zoomValue + ZOOM_STEP) >= 100) {
-    resizeControlsValue.value = 100 + '%';
-    filterImagePreview.style = 'transform: scale(1)';
-  } else {
-    resizeControlsValue.value = (zoomValue += ZOOM_STEP) + '%';
-    filterImagePreview.style = 'transform: scale(0.' + zoomValue + ')';
-  }
-};
+incSizeBtn.addEventListener('click', window.increasePhotoSize(ZOOM_STEP));
 
-incSizeBtn.addEventListener('click', increasePhotoSize);
-
-var decreasePhotoSize = function () {
-  var zoomValue = +resizeControlsValue.value.slice(0, -1);
-  if ((zoomValue - ZOOM_STEP) <= ZOOM_STEP) {
-    resizeControlsValue.value = ZOOM_STEP + '%';
-    filterImagePreview.style = 'transform: scale(0.25)';
-  } else {
-    resizeControlsValue.value = (zoomValue -= ZOOM_STEP) + '%';
-    filterImagePreview.style = 'transform: scale(0.' + zoomValue + ')';
-  }
-};
-
-decSizeBtn.addEventListener('click', decreasePhotoSize);
+decSizeBtn.addEventListener('click', window.decreasePhotoSize(ZOOM_STEP));
