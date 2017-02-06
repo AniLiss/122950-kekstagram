@@ -1,6 +1,8 @@
 /**
  * Created by Elizabeth Anatskaya  on 06.02.2017.
  */
+'use strict';
+
 var switchFilter = function (e) {
   var targetFilter = e.target.parentNode.htmlFor ? e.target.parentNode.htmlFor : e.target.htmlFor;
   if (targetFilter) {

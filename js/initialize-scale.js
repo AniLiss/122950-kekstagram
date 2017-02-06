@@ -1,3 +1,5 @@
+'use strict';
+
 function increasePhotoSize (zoomStep) {
   return function () {
     var zoomValue = +resizeControlsValue.value.slice(0, -1);
