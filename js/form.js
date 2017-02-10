@@ -30,7 +30,7 @@ uploadOverlay.addEventListener('keydown', function (e) {
   }
 });
 
-var showUploadOverlay = function (e) {
+var showUploadOverlay = function () {
   filterImagePreview.style = 'transform: scale(0.55)';
   uploadOverlay.classList.remove('invisible');
   uploadSelectImage.classList.add('invisible');
@@ -45,7 +45,7 @@ uploadFileLabel.addEventListener('keydown', function (e) {
   }
 });
 
-filterControls.addEventListener('click', window.switchFilter);
+filterControls.addEventListener('click', switchFilter);
 
 filterControls.addEventListener('keydown', function (e) {
   if (e.keyCode === ENTER_KEY_CODE) {

@@ -1,6 +1,6 @@
 'use strict';
 
-function increasePhotoSize(zoomStep) {
+window.increasePhotoSize = function(zoomStep) {
   return function () {
     var zoomValue = +resizeControlsValue.value.slice(0, -1);
     if ((zoomValue + zoomStep) >= 100) {
@@ -11,9 +11,9 @@ function increasePhotoSize(zoomStep) {
       filterImagePreview.style = 'transform: scale(0.' + zoomValue + ')';
     }
   };
-}
+};
 
-function decreasePhotoSize(zoomStep) {
+window.decreasePhotoSize = function(zoomStep) {
   return function () {
     var zoomValue = +resizeControlsValue.value.slice(0, -1);
     if ((zoomValue - zoomStep) <= zoomStep) {
