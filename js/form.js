@@ -13,7 +13,7 @@ var ENTER_KEY_CODE = 13;
 var ESC_KEY_CODE = 27;
 
 var closeUploadOverlay = function () {
-  uploadOverlay.classList.add('invisible');
+  window.uploadOverlay.classList.add('invisible');
   uploadSelectImage.classList.remove('invisible');
 };
 
@@ -26,7 +26,7 @@ window.uploadOverlay.addEventListener('keydown', function (e) {
 
 var showUploadOverlay = function () {
   // filterImagePreview.style = 'transform: scale(0.55)';
-  uploadOverlay.classList.remove('invisible');
+  window.uploadOverlay.classList.remove('invisible');
   uploadSelectImage.classList.add('invisible');
 
 };
