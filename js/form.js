@@ -5,9 +5,6 @@ var uploadSelectImage = document.querySelector('#upload-select-image');
 var uploadFileBtn = uploadSelectImage.querySelector('#upload-file');
 var uploadFileLabel = uploadSelectImage.querySelector('.upload-file');
 window.filterImagePreview = uploadOverlay.querySelector('.filter-image-preview');
-var resizeControls = uploadOverlay.querySelector('.upload-resize-controls');
-
-var ZOOM_STEP = 25;
 var ENTER_KEY_CODE = 13;
 var ESC_KEY_CODE = 27;
 
@@ -17,8 +14,7 @@ var closeUploadOverlay = function () {
 };
 
 uploadFormCancelBtn.addEventListener('click', closeUploadOverlay);
-
-window.uploadOverlay.addEventListener('keydown', function (e) {
+uploadOverlay.addEventListener('keydown', function (e) {
   if (e.keyCode === ESC_KEY_CODE) {
     closeUploadOverlay();
   }
@@ -36,6 +32,3 @@ uploadFileLabel.addEventListener('keydown', function (e) {
     showUploadOverlay();
   }
 });
-
-window.initializeFilters();
-window.createScale(resizeControls, ZOOM_STEP, 55);

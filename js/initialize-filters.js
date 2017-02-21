@@ -1,5 +1,5 @@
 'use strict';
-window.initializeFilters = function () {
+window.initializeFilters = (function () {
   var uploadForm = document.querySelector('.upload-filter');
   var filterControls = uploadForm.querySelector('.upload-filter-controls');
 
@@ -25,4 +25,4 @@ window.initializeFilters = function () {
   });
 
   filterControls.addEventListener('click', switchFilter);
-};
+})();
