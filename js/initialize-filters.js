@@ -1,8 +1,4 @@
-/**
- * Created by Elizabeth Anatskaya  on 06.02.2017.
- */
 'use strict';
-
 window.initializeFilters = function () {
   var uploadForm = document.querySelector('.upload-filter');
   var filterControls = uploadForm.querySelector('.upload-filter-controls');
