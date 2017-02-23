@@ -1,6 +1,6 @@
 'use strict';
 window.initializeFilters = (function () {
-  return function () {
+  return function (applyFilter) {
     var uploadForm = document.querySelector('.upload-filter');
     var filterControls = uploadForm.querySelector('.upload-filter-controls');
 
@@ -9,8 +9,7 @@ window.initializeFilters = (function () {
       if (targetFilter) {
         var filterValue = e.currentTarget.querySelector('#' + targetFilter).value;
         var filterName = 'filter-' + filterValue;
-        window.filterImagePreview.className = 'filter-image-preview';
-        window.filterImagePreview.classList.add(filterName);
+        applyFilter(filterName);
       }
     };
 

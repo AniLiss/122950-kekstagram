@@ -5,7 +5,7 @@ var uploadSelectImage = document.querySelector('#upload-select-image');
 var uploadFileBtn = uploadSelectImage.querySelector('#upload-file');
 var uploadFileLabel = uploadSelectImage.querySelector('.upload-file');
 var resizeControls = document.querySelector('.upload-resize-controls');
-window.filterImagePreview = uploadOverlay.querySelector('.filter-image-preview');
+var filterImagePreview = uploadOverlay.querySelector('.filter-image-preview');
 var ZOOM_STEP = 25;
 var ZOOM_VALUE = 55;
 var ENTER_KEY_CODE = 13;
@@ -35,5 +35,15 @@ uploadFileLabel.addEventListener('keydown', function (e) {
     showUploadOverlay();
   }
 });
-window.initializeFilters();
-window.createScale(resizeControls, ZOOM_STEP, ZOOM_VALUE);
+
+var applyFilter = function (filterName) {
+  filterImagePreview.className = 'filter-image-preview';
+  filterImagePreview.classList.add(filterName);
+};
+
+var zoomChangeCb = function (zoom) {
+  window.filterImagePreview.style.transform = 'scale(' + zoom / 100 + ')';
+};
+
+window.initializeFilters(applyFilter);
+window.createScale(resizeControls, ZOOM_STEP, ZOOM_VALUE, zoomChangeCb);
