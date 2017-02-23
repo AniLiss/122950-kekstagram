@@ -4,7 +4,10 @@ var uploadFormCancelBtn = uploadOverlay.querySelector('.upload-form-cancel');
 var uploadSelectImage = document.querySelector('#upload-select-image');
 var uploadFileBtn = uploadSelectImage.querySelector('#upload-file');
 var uploadFileLabel = uploadSelectImage.querySelector('.upload-file');
+var resizeControls = document.querySelector('.upload-resize-controls');
 window.filterImagePreview = uploadOverlay.querySelector('.filter-image-preview');
+var ZOOM_STEP = 25;
+var ZOOM_VALUE = 55;
 var ENTER_KEY_CODE = 13;
 var ESC_KEY_CODE = 27;
 
@@ -32,3 +35,5 @@ uploadFileLabel.addEventListener('keydown', function (e) {
     showUploadOverlay();
   }
 });
+window.initializeFilters();
+window.createScale(resizeControls, ZOOM_STEP, ZOOM_VALUE);
