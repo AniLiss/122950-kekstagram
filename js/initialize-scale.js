@@ -1,5 +1,4 @@
 'use strict';
-
 window.createScale = (function () {
   return function (resizeControls, ZOOM_STEP, ZOOM_VALUE) {
     var incSizeBtn = resizeControls.querySelector('.upload-resize-controls-button-inc');
