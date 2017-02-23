@@ -1,22 +1,17 @@
 'use strict';
 window.createScale = (function () {
-  return function (resizeControls, ZOOM_STEP, ZOOM_VALUE) {
+  return function (resizeControls, ZOOM_STEP, ZOOM_VALUE, zoomChangeCb) {
     var incSizeBtn = resizeControls.querySelector('.upload-resize-controls-button-inc');
     var decSizeBtn = resizeControls.querySelector('.upload-resize-controls-button-dec');
 
     var syncState = function (widgetRootElem) {
       displayZoomValue(widgetRootElem);
-      scaleZoomableElement();
+      zoomChangeCb(ZOOM_VALUE);
     };
 
     function displayZoomValue(widgetRootElem) {
       var resizeControlsValue = widgetRootElem.querySelector('input');
       resizeControlsValue.value = ZOOM_VALUE + '%';
-    }
-
-    function scaleZoomableElement() {
-      var scale = ZOOM_VALUE / 100;
-      window.filterImagePreview.style = 'transform: scale(' + scale + ')';
     }
 
     syncState(resizeControls);
