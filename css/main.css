@@ -289,6 +289,7 @@ body {
 
 .filter-image-preview {
   vertical-align: middle;
+  transform: scale(0.55);
 }
 
 .upload-filter-controls input[type=radio] {
