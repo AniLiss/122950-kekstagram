@@ -47,3 +47,4 @@ var zoomChangeCb = function (zoom) {
 
 window.initializeFilters(applyFilter);
 window.createScale(resizeControls, ZOOM_STEP, ZOOM_VALUE, zoomChangeCb);
+
