@@ -10,7 +10,6 @@ window.showGalleryItem = function (url, likes, comments) {
 
   var closeGalleryOverlay = function (galleryOverlayData) {
     return function (e) {
-      // window.closeGalleryOverlayCb(galleryOverlayData);
       if (e.keyCode === window.ESC_KEY_CODE || e.keyCode === window.ENTER_KEY_CODE || e.which === 1) {
         window.closeGalleryOverlayCb(galleryOverlayData);
       }
