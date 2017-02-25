@@ -8,11 +8,11 @@ var onLoad = (function () {
     var templateElement = document.querySelector('#picture-template');
     var elementToClone = templateElement.content.querySelector('.picture');
 
-    var showGalleryCb = function (url, likes, comments) {
-      return function () {
-        window.showGallery(url, likes, comments);
-      };
-    };
+    // var showGalleryCb = function (url, likes, comments) {
+    //   return function () {
+    //     window.showGallery(url, likes, comments);
+    //   };
+    // };
 
     var showGalleryItem = function (e) {
       // window.console.log(e.target.parentNode);
