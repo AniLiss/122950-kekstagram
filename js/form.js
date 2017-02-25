@@ -42,7 +42,7 @@ var applyFilter = function (filterName) {
 };
 
 var zoomChangeCb = function (zoom) {
-  window.filterImagePreview.style.transform = 'scale(' + zoom / 100 + ')';
+  filterImagePreview.style.transform = 'scale(' + zoom / 100 + ')';
 };
 
 window.initializeFilters(applyFilter);
