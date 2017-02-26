@@ -16,6 +16,8 @@
     var templateElement = document.querySelector('#picture-template');
     var elementToClone = templateElement.content.querySelector('.picture');
 
+    picturesContainer.innerHTML = '';
+
     var renderPicture = function (dataObject) {
       var newElement = elementToClone.cloneNode(true);
       newElement.querySelector('img').src = dataObject.url;
