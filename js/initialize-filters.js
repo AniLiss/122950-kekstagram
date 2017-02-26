@@ -5,7 +5,7 @@ window.initializeFilters = (function () {
     var filterControls = uploadForm.querySelector('.upload-filter-controls');
     var sliderHandlerBox = filterControls.querySelector('.upload-filter-level');
 
-    var moveFilterSlider = (function () {
+    var moveFilterSlider = function () {
       var sliderHandler = sliderHandlerBox.querySelector('.upload-filter-level-pin');
       var sliderFillLine = sliderHandlerBox.querySelector('.upload-filter-level-val');
 
@@ -52,7 +52,9 @@ window.initializeFilters = (function () {
         sliderHandlerBox.addEventListener('mousemove', onMouseMove);
         sliderHandlerBox.addEventListener('mouseup', onMouseUp);
       });
-    })();
+    };
+
+    moveFilterSlider();
 
     var showFilterSlider = function (targetFilter) {
       if (targetFilter === 'upload-filter-none') {

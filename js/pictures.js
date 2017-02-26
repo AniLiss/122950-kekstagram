@@ -56,17 +56,15 @@
 
   var sortByCommentNumber = function (picturesListArray) {
     var sortedByCommentNumber = picturesListArray.slice(0);
-    for (var i = 0; i < picturesList.length; i++) {
-      sortedByCommentNumber.sort(function (a, b) {
-        if (a.comments.length > b.comments.length) {
-          return 1;
-        }
-        if (a.comments.length < b.comments.length) {
-          return -1;
-        }
-        return 0;
-      });
-    }
+    sortedByCommentNumber.sort(function (a, b) {
+      if (a.comments.length > b.comments.length) {
+        return -1;
+      }
+      if (a.comments.length < b.comments.length) {
+        return 1;
+      }
+      return 0;
+    });
     return sortedByCommentNumber;
   };
 
