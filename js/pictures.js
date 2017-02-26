@@ -33,21 +33,25 @@
     picturesContainer.addEventListener('click', prapareGalleryItemToShow);
   };
 
-  var checkElementExistence = function (randomPictures, currentPicture) {
-    for (var j = 0; j < randomPictures.length; j++) {
-      if (randomPictures[j] === currentPicture) {
+  var candidateNotPresentInResult = function (list, candidate) {
+    for (var j = 0; j < list.length; j++) {
+      if (list[j] === candidate) {
         return false;
       }
     }
-    return randomPictures.push(currentPicture);
+    return true;
   };
 
-  var createRandomPictureList = function (randomPictures, currentPicturesList) {
-    while (randomPictures.length < 10) {
-      var randomIndex = Math.floor(Math.random() * (currentPicturesList.length));
-      var currentPicture = currentPicturesList[randomIndex];
-      checkElementExistence(randomPictures, currentPicture);
+  var createRandomPictureList = function (picturesListToRandom) {
+    var result = [];
+    while (result.length < 10) {
+      var randomIndex = Math.floor(Math.random() * (picturesListToRandom.length));
+      var candidate = picturesList[randomIndex];
+      if (candidateNotPresentInResult(result, candidate)) {
+        result.push(candidate);
+      }
     }
+    return result;
   };
 
   var sortByCommentNumber = function (picturesListArray) {
@@ -69,11 +73,11 @@
   var sortPhotos = (function () {
     return function (e) {
       var filterValue = e.target.htmlFor;
-      var randomPictures = [picturesList[0]];
+      var randomPictures = [];
       if (filterValue === 'filter-popular') {
         renderPictures(picturesList);
       } else if (filterValue === 'filter-new') {
-        createRandomPictureList(randomPictures, picturesList);
+        randomPictures = createRandomPictureList(picturesList);
         renderPictures(randomPictures);
       } else if (filterValue === 'filter-discussed') {
         var sortedArray = sortByCommentNumber(picturesList);
@@ -82,7 +86,7 @@
     };
   })();
 
-  var filterPhotos = function () {
+  var enableFilters = function () {
     var filters = document.querySelector('.filters');
     filters.classList.remove('hidden');
     filters.addEventListener('click', sortPhotos);
@@ -93,7 +97,7 @@
       var data = JSON.parse(evt.target.response);
       picturesList = data;
       renderPictures(picturesList);
-      filterPhotos();
+      enableFilters();
     };
   })();
 
