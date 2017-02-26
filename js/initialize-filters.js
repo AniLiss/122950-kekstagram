@@ -5,10 +5,15 @@ window.initializeFilters = (function () {
     var filterControls = uploadForm.querySelector('.upload-filter-controls');
     var sliderHandlerBox = filterControls.querySelector('.upload-filter-level');
 
+    var applyFilterValue = function (maxFilterValue, currentFilterFactor) {
+      var filterFactor = (currentFilterFactor / maxFilterValue).toFixed(2);
+      return filterFactor;
+    };
+
     var moveFilterSlider = function () {
       var sliderHandler = sliderHandlerBox.querySelector('.upload-filter-level-pin');
       var sliderFillLine = sliderHandlerBox.querySelector('.upload-filter-level-val');
-
+      var MAX_FILTER_VAL = 450;
       sliderHandler.addEventListener('mousedown', function (evt) {
         evt.preventDefault();
 
@@ -27,12 +32,12 @@ window.initializeFilters = (function () {
           };
 
           var moveHandlerFillLine = function (handlerShiftVal) {
-            if ((handlerShiftVal > 0) && (handlerShiftVal < 450)) {
+            if ((handlerShiftVal > 0) && (handlerShiftVal < MAX_FILTER_VAL)) {
               sliderHandler.style.left = handlerShiftVal + 'px';
               sliderFillLine.style.width = handlerShiftVal + 'px';
-            } else if (handlerShiftVal > 450) {
-              sliderHandler.style.left = 450 + 'px';
-              sliderFillLine.style.width = 450 + 'px';
+            } else if (handlerShiftVal > MAX_FILTER_VAL) {
+              sliderHandler.style.left = MAX_FILTER_VAL + 'px';
+              sliderFillLine.style.width = MAX_FILTER_VAL + 'px';
             } else if (handlerShiftVal < 0) {
               sliderHandler.style.left = 0 + 'px';
               sliderFillLine.style.width = 0 + 'px';
@@ -40,6 +45,8 @@ window.initializeFilters = (function () {
           };
           var handlerShift = sliderHandler.offsetLeft - shift.x;
           moveHandlerFillLine(handlerShift);
+
+          applyFilterValue(MAX_FILTER_VAL, handlerShift);
         };
 
         var onMouseUp = function (upEvt) {
