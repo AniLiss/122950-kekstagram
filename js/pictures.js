@@ -50,6 +50,22 @@
     }
   };
 
+  var sortByCommentNumber = function (picturesListArray) {
+    var sortedByCommentNumber = picturesListArray;
+    for (var i = 0; i < picturesList.length; i++) {
+      sortedByCommentNumber.sort(function (a, b) {
+        if (a.comments.length > b.comments.length) {
+          return 1;
+        }
+        if (a.comments.length < b.comments.length) {
+          return -1;
+        }
+        return 0;
+      });
+    }
+    return sortedByCommentNumber;
+  };
+
   var sortPhotos = (function () {
     return function (e) {
       var filterValue = e.target.htmlFor;
@@ -60,19 +76,8 @@
         createRandomPictureList(randomPictures, picturesList);
         renderPictures(randomPictures);
       } else if (filterValue === 'filter-discussed') {
-        var sortedByCommentNumber = picturesList;
-        for (var i = 0; i < picturesList.length; i++) {
-          sortedByCommentNumber.sort(function (a, b) {
-            if (a.comments.length > b.comments.length) {
-              return 1;
-            }
-            if (a.comments.length < b.comments.length) {
-              return -1;
-            }
-            return 0;
-          });
-        }
-        renderPictures(sortedByCommentNumber);
+        var sortedArray = sortByCommentNumber(picturesList);
+        renderPictures(sortedArray);
       }
     };
   })();
