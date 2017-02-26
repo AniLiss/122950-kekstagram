@@ -51,7 +51,7 @@
   };
 
   var sortByCommentNumber = function (picturesListArray) {
-    var sortedByCommentNumber = picturesListArray;
+    var sortedByCommentNumber = picturesListArray.slice(0);
     for (var i = 0; i < picturesList.length; i++) {
       sortedByCommentNumber.sort(function (a, b) {
         if (a.comments.length > b.comments.length) {
