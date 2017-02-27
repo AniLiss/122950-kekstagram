@@ -13,6 +13,7 @@ window.initializeFilters = (function () {
     var moveFilterSlider = function () {
       var sliderHandler = sliderHandlerBox.querySelector('.upload-filter-level-pin');
       var sliderFillLine = sliderHandlerBox.querySelector('.upload-filter-level-val');
+      var MIN_FILTER_VAL = 0;
       var MAX_FILTER_VAL = 450;
       sliderHandler.addEventListener('mousedown', function (evt) {
         evt.preventDefault();
@@ -32,15 +33,15 @@ window.initializeFilters = (function () {
           };
 
           var moveHandlerFillLine = function (handlerShiftVal) {
-            if ((handlerShiftVal > 0) && (handlerShiftVal < MAX_FILTER_VAL)) {
+            if ((handlerShiftVal > MIN_FILTER_VAL) && (handlerShiftVal < MAX_FILTER_VAL)) {
               sliderHandler.style.left = handlerShiftVal + 'px';
               sliderFillLine.style.width = handlerShiftVal + 'px';
             } else if (handlerShiftVal > MAX_FILTER_VAL) {
               sliderHandler.style.left = MAX_FILTER_VAL + 'px';
               sliderFillLine.style.width = MAX_FILTER_VAL + 'px';
-            } else if (handlerShiftVal < 0) {
-              sliderHandler.style.left = 0 + 'px';
-              sliderFillLine.style.width = 0 + 'px';
+            } else if (handlerShiftVal < MIN_FILTER_VAL) {
+              sliderHandler.style.left = MIN_FILTER_VAL + 'px';
+              sliderFillLine.style.width = MIN_FILTER_VAL + 'px';
             }
           };
           var handlerShift = sliderHandler.offsetLeft - shift.x;

@@ -1,26 +1,26 @@
 'use strict';
 window.createScale = (function () {
-  return function (resizeControls, ZOOM_STEP, ZOOM_VALUE, zoomChangeCb) {
+  return function (resizeControls, zoomStep, zoomValue, zoomChangeCb) {
     var incSizeBtn = resizeControls.querySelector('.upload-resize-controls-button-inc');
     var decSizeBtn = resizeControls.querySelector('.upload-resize-controls-button-dec');
 
     var syncState = function (widgetRootElem) {
       displayZoomValue(widgetRootElem);
-      zoomChangeCb(ZOOM_VALUE);
+      zoomChangeCb(zoomValue);
     };
 
     function displayZoomValue(widgetRootElem) {
       var resizeControlsValue = widgetRootElem.querySelector('input');
-      resizeControlsValue.value = ZOOM_VALUE + '%';
+      resizeControlsValue.value = zoomValue + '%';
     }
 
     syncState(resizeControls);
     var scaleUp = function (widgetRootElem, step) {
       return function () {
-        if (ZOOM_VALUE <= 100 - step) {
-          ZOOM_VALUE += step;
+        if (zoomValue <= 100 - step) {
+          zoomValue += step;
         } else {
-          ZOOM_VALUE = 100;
+          zoomValue = 100;
         }
         syncState(widgetRootElem);
       };
@@ -28,13 +28,13 @@ window.createScale = (function () {
 
     var scaleDown = function (widgetRootElem, step) {
       return function () {
-        if (ZOOM_VALUE > step) {
-          ZOOM_VALUE -= step;
+        if (zoomValue > step) {
+          zoomValue -= step;
         }
         syncState(widgetRootElem);
       };
     };
-    decSizeBtn.addEventListener('click', scaleDown(resizeControls, ZOOM_STEP));
-    incSizeBtn.addEventListener('click', scaleUp(resizeControls, ZOOM_STEP));
+    decSizeBtn.addEventListener('click', scaleDown(resizeControls, zoomStep));
+    incSizeBtn.addEventListener('click', scaleUp(resizeControls, zoomStep));
   };
 })();
