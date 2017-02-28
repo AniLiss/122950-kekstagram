@@ -1,5 +1,5 @@
 'use strict';
-(function () {
+window.initializeForm = (function () {
   var uploadOverlay = document.querySelector('.upload-overlay');
   var uploadFormCancelBtn = uploadOverlay.querySelector('.upload-form-cancel');
   var uploadSelectImage = document.querySelector('#upload-select-image');
@@ -62,5 +62,9 @@
 
   window.initializeFilters(applyFilter);
   window.createScale(resizeControls, ZOOM_STEP, ZOOM_VALUE, zoomChangeCb);
+
+  return {
+    ENTER_KEY_CODE: 13
+  };
 })();
 

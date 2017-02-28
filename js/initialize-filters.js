@@ -7,6 +7,7 @@ window.initializeFilters = (function () {
     var sliderLine = sliderHandlerBox.querySelector('.upload-filter-level-line');
     var filterFactor = 0.3;
     var filterName;
+    // var ENTER_KEY_CODE = 13;
 
     var applyFilterValue = function (maxFilterValue, currentFilterFactor) {
       filterFactor = (currentFilterFactor / maxFilterValue).toFixed(2);
@@ -72,7 +73,14 @@ window.initializeFilters = (function () {
     };
 
     var switchFilter = function (e) {
-      var targetFilter = e.target.parentNode.htmlFor ? e.target.parentNode.htmlFor : e.target.id;
+      var targetFilter;
+      if (e.target.parentNode.htmlFor) {
+        targetFilter = e.target.parentNode.htmlFor;
+      } else if (e.target.htmlFor) {
+        targetFilter = e.target.htmlFor;
+      } else if (e.target.id) {
+        targetFilter = e.target.id;
+      }
       showFilterSlider(targetFilter);
       if (targetFilter) {
         var filterValue = e.currentTarget.querySelector('#' + targetFilter).value;
@@ -82,7 +90,7 @@ window.initializeFilters = (function () {
     };
 
     filterControls.addEventListener('keydown', function (e) {
-      if (e.keyCode === window.ENTER_KEY_CODE) {
+      if (e.keyCode === window.initializeForm.ENTER_KEY_CODE) {
         var labelElements = e.currentTarget.querySelectorAll('.upload-filter-label');
         for (var i = 0; i < labelElements.length; i++) {
           labelElements[i].attributes['aria-checked'].nodeValue = false;
