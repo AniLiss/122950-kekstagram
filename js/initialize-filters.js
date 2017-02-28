@@ -57,6 +57,7 @@ window.initializeFilters = (function () {
 
       sliderHandler.addEventListener('mousedown', onMouseDown);
       sliderHandler.addEventListener('mouseup', onMouseUp);
+      sliderHandlerBox.addEventListener('mouseup', onMouseUp);
       sliderRootElem.addEventListener('mousemove', onMouseMove);
     };
 

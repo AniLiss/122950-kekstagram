@@ -39,7 +39,6 @@
 
   var applyFilter = function (filterName, filterFactor) {
     filterImagePreview.className = 'filter-image-preview';
-    filterImagePreview.style.filter = '';
     filterImagePreview.classList.add(filterName);
 
     if (filterImagePreview.classList.contains('filter-chrome')) {
