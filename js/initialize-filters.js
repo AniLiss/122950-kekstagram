@@ -7,7 +7,6 @@ window.initializeFilters = (function () {
     var sliderLine = sliderHandlerBox.querySelector('.upload-filter-level-line');
     var filterFactor = 0.3;
     var filterName;
-    // var ENTER_KEY_CODE = 13;
 
     var applyFilterValue = function (maxFilterValue, currentFilterFactor) {
       filterFactor = (currentFilterFactor / maxFilterValue).toFixed(2);
@@ -90,7 +89,7 @@ window.initializeFilters = (function () {
     };
 
     filterControls.addEventListener('keydown', function (e) {
-      if (e.keyCode === window.initializeForm.enterKeyCode) {
+      if (e.keyCode === window.keyCodes.enterKeyCode) {
         var labelElements = e.currentTarget.querySelectorAll('.upload-filter-label');
         for (var i = 0; i < labelElements.length; i++) {
           labelElements[i].attributes['aria-checked'].nodeValue = false;

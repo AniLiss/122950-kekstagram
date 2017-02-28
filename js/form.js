@@ -9,9 +9,6 @@ window.initializeForm = (function () {
   var filterImagePreview = uploadOverlay.querySelector('.filter-image-preview');
   var ZOOM_STEP = 25;
   var ZOOM_VALUE = 55;
-  var ENTER_KEY_CODE = 13;
-  var ESC_KEY_CODE = 27;
-
 
   var closeUploadOverlay = function () {
     uploadOverlay.classList.add('invisible');
@@ -20,7 +17,7 @@ window.initializeForm = (function () {
 
   uploadFormCancelBtn.addEventListener('click', closeUploadOverlay);
   uploadOverlay.addEventListener('keydown', function (e) {
-    if (e.keyCode === ESC_KEY_CODE) {
+    if (e.keyCode === window.keyCodes.escKeyCode) {
       closeUploadOverlay();
     }
   });
@@ -33,7 +30,7 @@ window.initializeForm = (function () {
 
   uploadFileBtn.addEventListener('change', showUploadOverlay);
   uploadFileLabel.addEventListener('keydown', function (e) {
-    if (e.keyCode === ENTER_KEY_CODE) {
+    if (e.keyCode === window.keyCodes.enterKeyCode) {
       showUploadOverlay();
     }
   });
@@ -63,9 +60,5 @@ window.initializeForm = (function () {
 
   window.initializeFilters(applyFilter);
   window.createScale(resizeControls, ZOOM_STEP, ZOOM_VALUE, zoomChangeCb);
-
-  return {
-    enterKeyCode: ENTER_KEY_CODE
-  };
 })();
 
