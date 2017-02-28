@@ -3,68 +3,63 @@ window.initializeFilters = (function () {
   return function (applyFilter) {
     var uploadForm = document.querySelector('.upload-filter');
     var filterControls = uploadForm.querySelector('.upload-filter-controls');
-    var sliderHandlerBox = filterControls.querySelector('.upload-filter-level');
 
-    var applyFilterValue = function (maxFilterValue, currentFilterFactor) {
-      var filterFactor = (currentFilterFactor / maxFilterValue).toFixed(2);
-      return filterFactor;
-    };
-
-    var moveFilterSlider = function () {
+    var initializeFilterSlider = function (sliderHandlerBox) {
+      // var sliderHandlerBox = filterControls.querySelector('.upload-filter-level');
       var sliderHandler = sliderHandlerBox.querySelector('.upload-filter-level-pin');
       var sliderFillLine = sliderHandlerBox.querySelector('.upload-filter-level-val');
       var MIN_FILTER_VAL = 0;
       var MAX_FILTER_VAL = 450;
+
+      var applyFilterValue = function (maxFilterValue, currentFilterFactor) {
+        var filterFactor = (currentFilterFactor / maxFilterValue).toFixed(2);
+        return filterFactor;
+      };
+
+      var moveHandlerFillLine = function (handlerShiftVal) {
+        if ((handlerShiftVal > MIN_FILTER_VAL) && (handlerShiftVal < MAX_FILTER_VAL)) {
+          sliderHandler.style.left = handlerShiftVal + 'px';
+          sliderFillLine.style.width = handlerShiftVal + 'px';
+        } else if (handlerShiftVal > MAX_FILTER_VAL) {
+          sliderHandler.style.left = MAX_FILTER_VAL + 'px';
+          sliderFillLine.style.width = MAX_FILTER_VAL + 'px';
+        } else if (handlerShiftVal < MIN_FILTER_VAL) {
+          sliderHandler.style.left = MIN_FILTER_VAL + 'px';
+          sliderFillLine.style.width = MIN_FILTER_VAL + 'px';
+        }
+      };
+
+      var onMouseMove = function (startCordX) {
+        return function (moveEvt) {
+          moveEvt.preventDefault();
+          var currentCordX = moveEvt.clientX;
+          var shift = startCordX - currentCordX;
+          var handlerShift = sliderHandler.offsetLeft - shift;
+          moveHandlerFillLine(handlerShift);
+          applyFilterValue(MAX_FILTER_VAL, handlerShift);
+        };
+      };
+
+      var onMouseUp = function (upEvt) {
+        upEvt.preventDefault();
+
+        sliderHandlerBox.removeEventListener('mousemove', onMouseMove);
+        sliderHandlerBox.removeEventListener('mouseup', onMouseUp);
+      };
+
       sliderHandler.addEventListener('mousedown', function (evt) {
         evt.preventDefault();
 
-        var startCoords = {
-          x: evt.clientX
-        };
+        var startCordX = evt.clientX;
 
-        var onMouseMove = function (moveEvt) {
-          moveEvt.preventDefault();
-          var shift = {
-            x: startCoords.x - moveEvt.clientX
-          };
-
-          startCoords = {
-            x: moveEvt.clientX
-          };
-
-          var moveHandlerFillLine = function (handlerShiftVal) {
-            if ((handlerShiftVal > MIN_FILTER_VAL) && (handlerShiftVal < MAX_FILTER_VAL)) {
-              sliderHandler.style.left = handlerShiftVal + 'px';
-              sliderFillLine.style.width = handlerShiftVal + 'px';
-            } else if (handlerShiftVal > MAX_FILTER_VAL) {
-              sliderHandler.style.left = MAX_FILTER_VAL + 'px';
-              sliderFillLine.style.width = MAX_FILTER_VAL + 'px';
-            } else if (handlerShiftVal < MIN_FILTER_VAL) {
-              sliderHandler.style.left = MIN_FILTER_VAL + 'px';
-              sliderFillLine.style.width = MIN_FILTER_VAL + 'px';
-            }
-          };
-          var handlerShift = sliderHandler.offsetLeft - shift.x;
-          moveHandlerFillLine(handlerShift);
-
-          applyFilterValue(MAX_FILTER_VAL, handlerShift);
-        };
-
-        var onMouseUp = function (upEvt) {
-          upEvt.preventDefault();
-
-          sliderHandlerBox.removeEventListener('mousemove', onMouseMove);
-          sliderHandlerBox.removeEventListener('mouseup', onMouseUp);
-        };
-
-        sliderHandlerBox.addEventListener('mousemove', onMouseMove);
+        sliderHandlerBox.addEventListener('mousemove', onMouseMove(startCordX));
         sliderHandlerBox.addEventListener('mouseup', onMouseUp);
       });
     };
 
-    moveFilterSlider();
-
     var showFilterSlider = function (targetFilter) {
+      var sliderHandlerBox = filterControls.querySelector('.upload-filter-level');
+
       if (targetFilter === 'upload-filter-none') {
         if (!sliderHandlerBox.classList.contains('invisible')) {
           sliderHandlerBox.classList.add('invisible');
@@ -74,6 +69,7 @@ window.initializeFilters = (function () {
           sliderHandlerBox.classList.remove('invisible');
         }
       }
+      initializeFilterSlider(sliderHandlerBox);
     };
 
     var switchFilter = function (e) {
