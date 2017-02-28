@@ -12,6 +12,7 @@ window.initializeForm = (function () {
   var ENTER_KEY_CODE = 13;
   var ESC_KEY_CODE = 27;
 
+
   var closeUploadOverlay = function () {
     uploadOverlay.classList.add('invisible');
     uploadSelectImage.classList.remove('invisible');
@@ -64,7 +65,7 @@ window.initializeForm = (function () {
   window.createScale(resizeControls, ZOOM_STEP, ZOOM_VALUE, zoomChangeCb);
 
   return {
-    ENTER_KEY_CODE: 13
+    enterKeyCode: ENTER_KEY_CODE
   };
 })();
 

@@ -90,7 +90,7 @@ window.initializeFilters = (function () {
     };
 
     filterControls.addEventListener('keydown', function (e) {
-      if (e.keyCode === window.initializeForm.ENTER_KEY_CODE) {
+      if (e.keyCode === window.initializeForm.enterKeyCode) {
         var labelElements = e.currentTarget.querySelectorAll('.upload-filter-label');
         for (var i = 0; i < labelElements.length; i++) {
           labelElements[i].attributes['aria-checked'].nodeValue = false;
