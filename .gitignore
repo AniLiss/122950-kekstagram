@@ -1,6 +1,5 @@
 build/
 node_modules/
-js/draft.js
 .DS_Store
 Thumbs.db
 .idea

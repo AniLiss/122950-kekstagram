@@ -37,9 +37,22 @@
     }
   });
 
-  var applyFilter = function (filterName) {
+  var applyFilter = function (filterName, filterFactor) {
     filterImagePreview.className = 'filter-image-preview';
+    filterImagePreview.style.filter = '';
     filterImagePreview.classList.add(filterName);
+
+    if (filterImagePreview.classList.contains('filter-chrome')) {
+      filterImagePreview.style.filter = 'grayscale(' + filterFactor + ')';
+    } else if (filterImagePreview.classList.contains('filter-sepia')) {
+      filterImagePreview.style.filter = 'sepia(' + filterFactor + ')';
+    } else if (filterImagePreview.classList.contains('filter-marvin')) {
+      filterImagePreview.style.filter = 'invert(' + filterFactor + ')';
+    } else if (filterImagePreview.classList.contains('filter-phobos')) {
+      filterImagePreview.style.filter = 'blur(' + filterFactor * 100 + 'px)';
+    } else if (filterImagePreview.classList.contains('filter-heat')) {
+      filterImagePreview.style.filter = 'saturate(' + filterFactor * 10 + ')';
+    }
   };
 
   var zoomChangeCb = function (zoom) {
