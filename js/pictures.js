@@ -3,7 +3,7 @@
   var DATA_URL = 'https://intensive-javascript-server-myophkugvq.now.sh/kekstagram/data';
   var picturesList = [];
 
-  var prapareGalleryItemToShow = function (e) {
+  var prepareGalleryItemToShow = function (e) {
     e.preventDefault();
     var url = e.target.parentNode.querySelector('img').src;
     var comment = e.target.parentNode.querySelector('.picture-comments').innerText;
@@ -30,7 +30,7 @@
       renderPicture(object);
     });
 
-    picturesContainer.addEventListener('click', prapareGalleryItemToShow);
+    picturesContainer.addEventListener('click', prepareGalleryItemToShow);
   };
 
   var candidateNotPresentInResult = function (list, candidate) {
