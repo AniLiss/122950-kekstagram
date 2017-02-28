@@ -18,7 +18,7 @@ window.initializeFilters = (function () {
       var sliderFillLine = sliderRootElem.querySelector('.upload-filter-level-val');
       var MIN_FILTER_VAL = 0;
       var MAX_FILTER_VAL = 450;
-      var hadlerIsDragged = false;
+      var handlerIsDragged = false;
 
       var moveHandlerFillLine = function (handlerShiftVal) {
         if (handlerShiftVal > MAX_FILTER_VAL) {
@@ -36,7 +36,7 @@ window.initializeFilters = (function () {
       var onMouseMove = function (moveEvt) {
         moveEvt.preventDefault();
 
-        if (hadlerIsDragged) {
+        if (handlerIsDragged) {
           var currentCordX = moveEvt.clientX;
           var handlerShift = currentCordX - sliderLine.getBoundingClientRect().left;
 
@@ -47,12 +47,12 @@ window.initializeFilters = (function () {
 
       var onMouseUp = function (upEvt) {
         upEvt.preventDefault();
-        hadlerIsDragged = false;
+        handlerIsDragged = false;
       };
 
       var onMouseDown = function (evt) {
         evt.preventDefault();
-        hadlerIsDragged = true;
+        handlerIsDragged = true;
       };
 
       sliderHandler.addEventListener('mousedown', onMouseDown);
