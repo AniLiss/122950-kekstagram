@@ -8,12 +8,25 @@ window.initializeFilters = (function () {
       // var sliderHandlerBox = filterControls.querySelector('.upload-filter-level');
       var sliderHandler = sliderHandlerBox.querySelector('.upload-filter-level-pin');
       var sliderFillLine = sliderHandlerBox.querySelector('.upload-filter-level-val');
+      var startCordX = 0;
       var MIN_FILTER_VAL = 0;
       var MAX_FILTER_VAL = 450;
 
       var applyFilterValue = function (maxFilterValue, currentFilterFactor) {
         var filterFactor = (currentFilterFactor / maxFilterValue).toFixed(2);
-        return filterFactor;
+        var filterImagePreview = document.querySelector('.filter-image-preview');
+        // var filterValue = filterImagePreview.style.filter;
+        if (filterImagePreview.classList.contains('filter-chrome')) {
+          filterImagePreview.style.filter = 'grayscale(' + filterFactor + ')';
+        } else if (filterImagePreview.classList.contains('filter-sepia')) {
+          filterImagePreview.style.filter = 'sepia(' + filterFactor + ')';
+        } else if (filterImagePreview.classList.contains('filter-marvin')) {
+          filterImagePreview.style.filter = 'invert(' + filterFactor + ')';
+        } else if (filterImagePreview.classList.contains('filter-phobos')) {
+          filterImagePreview.style.filter = 'blur(' + filterFactor * 100 + 'px)';
+        } else if (filterImagePreview.classList.contains('filter-heat')) {
+          filterImagePreview.style.filter = 'saturate(' + filterFactor + ')';
+        }
       };
 
       var moveHandlerFillLine = function (handlerShiftVal) {
@@ -29,14 +42,16 @@ window.initializeFilters = (function () {
         }
       };
 
-      var onMouseMove = function (startCordX) {
+      var onMouseMove = function (startCordXVal) {
         return function (moveEvt) {
           moveEvt.preventDefault();
           var currentCordX = moveEvt.clientX;
-          var shift = startCordX - currentCordX;
+          var shift = startCordXVal - currentCordX;
+          startCordX = currentCordX;
           var handlerShift = sliderHandler.offsetLeft - shift;
           moveHandlerFillLine(handlerShift);
           applyFilterValue(MAX_FILTER_VAL, handlerShift);
+          sliderHandlerBox.removeEventListener('mousemove', onMouseMove);
         };
       };
 
@@ -50,8 +65,7 @@ window.initializeFilters = (function () {
       sliderHandler.addEventListener('mousedown', function (evt) {
         evt.preventDefault();
 
-        var startCordX = evt.clientX;
-
+        startCordX = evt.clientX;
         sliderHandlerBox.addEventListener('mousemove', onMouseMove(startCordX));
         sliderHandlerBox.addEventListener('mouseup', onMouseUp);
       });
