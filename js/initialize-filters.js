@@ -4,82 +4,92 @@ window.initializeFilters = (function () {
     var uploadForm = document.querySelector('.upload-filter');
     var filterControls = uploadForm.querySelector('.upload-filter-controls');
     var sliderHandlerBox = filterControls.querySelector('.upload-filter-level');
+    var sliderLine = sliderHandlerBox.querySelector('.upload-filter-level-line');
+    var filterFactor = 0.3;
+    var filterName;
 
-    var moveFilterSlider = function () {
-      var sliderHandler = sliderHandlerBox.querySelector('.upload-filter-level-pin');
-      var sliderFillLine = sliderHandlerBox.querySelector('.upload-filter-level-val');
-
-      sliderHandler.addEventListener('mousedown', function (evt) {
-        evt.preventDefault();
-
-        var startCoords = {
-          x: evt.clientX
-        };
-
-        var onMouseMove = function (moveEvt) {
-          moveEvt.preventDefault();
-          var shift = {
-            x: startCoords.x - moveEvt.clientX
-          };
-
-          startCoords = {
-            x: moveEvt.clientX
-          };
-
-          var moveHandlerFillLine = function (handlerShiftVal) {
-            if ((handlerShiftVal > 0) && (handlerShiftVal < 450)) {
-              sliderHandler.style.left = handlerShiftVal + 'px';
-              sliderFillLine.style.width = handlerShiftVal + 'px';
-            } else if (handlerShiftVal > 450) {
-              sliderHandler.style.left = 450 + 'px';
-              sliderFillLine.style.width = 450 + 'px';
-            } else if (handlerShiftVal < 0) {
-              sliderHandler.style.left = 0 + 'px';
-              sliderFillLine.style.width = 0 + 'px';
-            }
-          };
-          var handlerShift = sliderHandler.offsetLeft - shift.x;
-          moveHandlerFillLine(handlerShift);
-        };
-
-        var onMouseUp = function (upEvt) {
-          upEvt.preventDefault();
-
-          sliderHandlerBox.removeEventListener('mousemove', onMouseMove);
-          sliderHandlerBox.removeEventListener('mouseup', onMouseUp);
-        };
-
-        sliderHandlerBox.addEventListener('mousemove', onMouseMove);
-        sliderHandlerBox.addEventListener('mouseup', onMouseUp);
-      });
+    var applyFilterValue = function (maxFilterValue, currentFilterFactor) {
+      filterFactor = (currentFilterFactor / maxFilterValue).toFixed(2);
+      applyFilter(filterName, filterFactor);
     };
 
-    moveFilterSlider();
+    var initializeFilterSlider = function (sliderRootElem) {
+      var sliderHandler = sliderRootElem.querySelector('.upload-filter-level-pin');
+      var sliderFillLine = sliderRootElem.querySelector('.upload-filter-level-val');
+      var MIN_FILTER_VAL = 0;
+      var MAX_FILTER_VAL = 450;
+      var handlerIsDragged = false;
+
+      var moveHandlerFillLine = function (handlerShiftVal) {
+        if (handlerShiftVal > MAX_FILTER_VAL) {
+          sliderHandler.style.left = MAX_FILTER_VAL + 'px';
+          sliderFillLine.style.width = MAX_FILTER_VAL + 'px';
+        } else if (handlerShiftVal < MIN_FILTER_VAL) {
+          sliderHandler.style.left = MIN_FILTER_VAL + 'px';
+          sliderFillLine.style.width = MIN_FILTER_VAL + 'px';
+        } else {
+          sliderHandler.style.left = handlerShiftVal + 'px';
+          sliderFillLine.style.width = handlerShiftVal + 'px';
+        }
+      };
+
+      var onMouseMove = function (moveEvt) {
+        moveEvt.preventDefault();
+
+        if (handlerIsDragged) {
+          var currentCordX = moveEvt.clientX;
+          var handlerShift = currentCordX - sliderLine.getBoundingClientRect().left;
+
+          moveHandlerFillLine(handlerShift);
+          applyFilterValue(MAX_FILTER_VAL, handlerShift);
+        }
+      };
+
+      var onMouseUp = function (upEvt) {
+        upEvt.preventDefault();
+        handlerIsDragged = false;
+      };
+
+      var onMouseDown = function (evt) {
+        evt.preventDefault();
+        handlerIsDragged = true;
+      };
+
+      sliderHandler.addEventListener('mousedown', onMouseDown);
+      sliderHandler.addEventListener('mouseup', onMouseUp);
+      sliderHandlerBox.addEventListener('mouseup', onMouseUp);
+      sliderRootElem.addEventListener('mousemove', onMouseMove);
+    };
+
 
     var showFilterSlider = function (targetFilter) {
+
       if (targetFilter === 'upload-filter-none') {
-        if (!sliderHandlerBox.classList.contains('invisible')) {
-          sliderHandlerBox.classList.add('invisible');
-        }
-      } else if (targetFilter !== 'upload-filter-none') {
-        if (sliderHandlerBox.classList.contains('invisible')) {
-          sliderHandlerBox.classList.remove('invisible');
-        }
+        sliderHandlerBox.classList.add('invisible');
+      } else {
+        sliderHandlerBox.classList.remove('invisible');
       }
     };
 
     var switchFilter = function (e) {
-      var targetFilter = e.target.parentNode.htmlFor ? e.target.parentNode.htmlFor : e.target.id;
+      var targetFilter;
+      if (e.target.parentNode.htmlFor) {
+        targetFilter = e.target.parentNode.htmlFor;
+      } else if (e.target.htmlFor) {
+        targetFilter = e.target.htmlFor;
+      } else if (e.target.id) {
+        targetFilter = e.target.id;
+      }
       showFilterSlider(targetFilter);
       if (targetFilter) {
         var filterValue = e.currentTarget.querySelector('#' + targetFilter).value;
-        var filterName = 'filter-' + filterValue;
-        applyFilter(filterName);
+        filterName = 'filter-' + filterValue;
+        applyFilter(filterName, filterFactor);
       }
     };
 
     filterControls.addEventListener('keydown', function (e) {
-      if (e.keyCode === window.ENTER_KEY_CODE) {
+      if (e.keyCode === window.keyCodes.enterKeyCode) {
         var labelElements = e.currentTarget.querySelectorAll('.upload-filter-label');
         for (var i = 0; i < labelElements.length; i++) {
           labelElements[i].attributes['aria-checked'].nodeValue = false;
@@ -90,5 +100,6 @@ window.initializeFilters = (function () {
     });
 
     filterControls.addEventListener('click', switchFilter);
+    initializeFilterSlider(sliderHandlerBox);
   };
 })();
