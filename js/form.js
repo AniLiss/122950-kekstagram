@@ -51,6 +51,8 @@
       filterImagePreview.style.filter = 'blur(' + filterFactor * 100 + 'px)';
     } else if (filterImagePreview.classList.contains('filter-heat')) {
       filterImagePreview.style.filter = 'saturate(' + filterFactor * 10 + ')';
+    } else if (filterImagePreview.classList.contains('filter-none')) {
+      filterImagePreview.style.filter = '';
     }
   };
 
