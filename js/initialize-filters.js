@@ -5,7 +5,7 @@ window.initializeFilters = (function () {
     var filterControls = uploadForm.querySelector('.upload-filter-controls');
     var sliderHandlerBox = filterControls.querySelector('.upload-filter-level');
     var sliderLine = sliderHandlerBox.querySelector('.upload-filter-level-line');
-    var filterFactor = 0.3;
+    var filterFactor = 0.3; // this is not a constant value; the value of this variable changes everytime when applyFilterValue function is called (string 12)
     var filterName;
 
     var applyFilterValue = function (maxFilterValue, currentFilterFactor) {
